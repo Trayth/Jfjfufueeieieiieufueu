@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pocket Arcade | Game Menu</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111b33;
+      --card-soft: #13203b;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-strong: #7c3aed;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.08), transparent 30%),
+                  radial-gradient(circle at 100% 10%, rgba(124, 58, 237, 0.08), transparent 25%),
+                  #0b1224;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 32px clamp(18px, 5vw, 48px) 12px;
+      display: grid;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(124, 58, 237, 0.12));
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 6vw, 40px);
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      margin: 0;
+      color: #cbd5e1;
+      max-width: 720px;
+      font-size: 17px;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px clamp(16px, 5vw, 42px) 48px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(16px, 4vw, 24px);
+      box-shadow: var(--shadow);
+    }
+
+    .card + .card {
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .game-card {
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .game-card h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(124, 58, 237, 0.14);
+      color: #d8b4fe;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #0b1224;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .button:active {
+      transform: translateY(1px);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.24);
+    }
+
+    .ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      box-shadow: none;
+      border: 1px solid var(--border);
+    }
+
+    .pill-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .question {
+      font-size: clamp(28px, 8vw, 40px);
+      font-weight: 800;
+      margin: 6px 0;
+      letter-spacing: 0.02em;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    input[type="number"]:focus {
+      outline: 2px solid rgba(56, 189, 248, 0.5);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .feedback {
+      font-weight: 700;
+      margin: 4px 0 0;
+      min-height: 24px;
+    }
+
+    .ok { color: var(--success); }
+    .err { color: var(--danger); }
+
+    ul.inline {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    ul.inline li {
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    footer {
+      padding: 18px clamp(16px, 5vw, 42px) 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="tag">Pocket Arcade</div>
+    <h1>All-in-one game menu</h1>
+    <p class="lede">Download once, play anywhere. Every style and script is inside this single HTML so you can open it on a phone, tablet, or desktop without extra files.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="stat-row" aria-label="Game details">
+        <span class="pill-stat">Offline ready</span>
+        <span class="pill-stat">Mobile friendly</span>
+        <span class="pill-stat">Single HTML</span>
+      </div>
+      <p style="margin: 12px 0 0; color: var(--muted);">Pick a game below. Mental Math Sprint is ready to play; additional games are listed for future rounds.</p>
+    </section>
+
+    <section class="card">
+      <div class="grid">
+        <article class="game-card" id="math-game">
+          <div class="actions" style="justify-content: space-between;">
+            <h3>Mental Math Sprint <span class="pill">Ready</span></h3>
+            <div class="stat-row">
+              <span class="pill-stat" id="score">Score: 0</span>
+              <span class="pill-stat" id="timer">Time: 60s</span>
+            </div>
+          </div>
+          <p style="margin: 0; color: var(--muted);">Solve as many problems as you can in one minute. Addition, subtraction, and multiplication keep you on your toes.</p>
+          <div class="question" id="question">Press Start to begin</div>
+          <div class="input-row">
+            <input id="answer" type="number" inputmode="numeric" autocomplete="off" placeholder="Type your answer" disabled aria-label="Answer field">
+            <button class="button" id="submit" disabled>Submit</button>
+          </div>
+          <div class="actions">
+            <button class="button" id="start">Start sprint</button>
+            <button class="button ghost" id="reset">Reset</button>
+          </div>
+          <p class="feedback" id="feedback" aria-live="polite"></p>
+          <div style="color: var(--muted); font-size: 14px;">
+            <strong>Tips:</strong> Tap the answer box, use the on-screen keyboard, and hit enter/return to submit quickly.
+          </div>
+        </article>
+
+        <article class="game-card">
+          <h3>Memory Flip <span class="pill">Coming soon</span></h3>
+          <p style="margin: 0; color: var(--muted);">Short-term memory warmup with paired tiles. Track your best streaks here.</p>
+          <div class="actions">
+            <button class="button ghost" disabled>Not available yet</button>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <h3>Reaction Tap <span class="pill">Coming soon</span></h3>
+          <p style="margin: 0; color: var(--muted);">Watch for the flash, tap fast, and beat your previous reaction times.</p>
+          <div class="actions">
+            <button class="button ghost" disabled>Not available yet</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 style="margin: 0 0 8px;">How to open anywhere</h3>
+      <ul class="inline">
+        <li>Download <strong>index.html</strong> to your phone</li>
+        <li>Open it from Files &rarr; your browser</li>
+        <li>No network needed after download</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>Built for quick, offline-friendly fun.</span>
+    <span>Place everything in one file to share easily.</span>
+  </footer>
+
+  <script>
+    const questionEl = document.getElementById('question');
+    const answerEl = document.getElementById('answer');
+    const feedbackEl = document.getElementById('feedback');
+    const scoreEl = document.getElementById('score');
+    const timerEl = document.getElementById('timer');
+    const startBtn = document.getElementById('start');
+    const submitBtn = document.getElementById('submit');
+    const resetBtn = document.getElementById('reset');
+
+    let currentAnswer = null;
+    let score = 0;
+    let timeLeft = 60;
+    let running = false;
+    let timerId = null;
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function nextQuestion() {
+      const operations = ['+', '-', '×'];
+      const a = randomInt(2, 20);
+      const b = randomInt(2, 12);
+      const op = operations[Math.floor(Math.random() * operations.length)];
+      let answer = 0;
+
+      switch (op) {
+        case '+':
+          answer = a + b;
+          break;
+        case '-':
+          answer = a - b;
+          break;
+        default:
+          answer = a * b;
+      }
+
+      currentAnswer = answer;
+      questionEl.textContent = `${a} ${op} ${b} = ?`;
+      feedbackEl.textContent = '';
+    }
+
+    function updateScore() {
+      scoreEl.textContent = `Score: ${score}`;
+    }
+
+    function updateTimer() {
+      timerEl.textContent = `Time: ${timeLeft}s`;
+    }
+
+    function startGame() {
+      if (running) return;
+      running = true;
+      score = 0;
+      timeLeft = 60;
+      updateScore();
+      updateTimer();
+      nextQuestion();
+      startBtn.disabled = true;
+      submitBtn.disabled = false;
+      answerEl.disabled = false;
+      answerEl.value = '';
+      answerEl.focus();
+      feedbackEl.textContent = '';
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        updateTimer();
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function endGame() {
+      running = false;
+      clearInterval(timerId);
+      submitBtn.disabled = true;
+      startBtn.disabled = false;
+      answerEl.disabled = true;
+      feedbackEl.textContent = `Time's up! Final score: ${score}`;
+      feedbackEl.className = 'feedback';
+    }
+
+    function submitAnswer() {
+      if (!running) return;
+      const userAnswer = Number(answerEl.value.trim());
+      if (Number.isNaN(userAnswer)) {
+        feedbackEl.textContent = 'Enter a number to continue.';
+        feedbackEl.className = 'feedback err';
+        answerEl.focus();
+        return;
+      }
+
+      if (userAnswer === currentAnswer) {
+        score += 1;
+        feedbackEl.textContent = 'Correct!';
+        feedbackEl.className = 'feedback ok';
+      } else {
+        feedbackEl.textContent = `Oops, the answer was ${currentAnswer}.`;
+        feedbackEl.className = 'feedback err';
+      }
+
+      updateScore();
+      answerEl.value = '';
+      nextQuestion();
+      answerEl.focus();
+    }
+
+    function resetGame() {
+      running = false;
+      clearInterval(timerId);
+      score = 0;
+      timeLeft = 60;
+      currentAnswer = null;
+      updateScore();
+      updateTimer();
+      questionEl.textContent = 'Press Start to begin';
+      feedbackEl.textContent = '';
+      answerEl.value = '';
+      submitBtn.disabled = true;
+      answerEl.disabled = true;
+      startBtn.disabled = false;
+    }
+
+    startBtn.addEventListener('click', startGame);
+    submitBtn.addEventListener('click', submitAnswer);
+    resetBtn.addEventListener('click', resetGame);
+    answerEl.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        submitAnswer();
+      }
+    });
+
+    resetGame();
+  </script>
+</body>
+</html>
