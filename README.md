@@ -1,25 +1,18 @@
-# Simple Starter Site
+# Pocket Arcade Menu
 
-A lightweight, single-page website with a hero, feature highlights, and a launch checklist. Update the copy and links, then host the static files anywhere.
+A self-contained HTML game hub built for quick play on mobile devices. The first game, **Mental Math Sprint**, is ready to go and everything—markup, styling (fully inline), and scripts—lives in a single file for easy sharing.
 
-## Preview locally (no server needed)
-Open `index.html` directly in your browser (double-click it or drag it into a tab). All assets are static and will load without any background services.
+## Open it anywhere
+- Download `index.html` to your phone, tablet, or desktop.
+- Tap it from your Files app or drag it into your browser.
+- No network connection or extra files are required after download.
 
 ## Publish with GitHub Pages
-Use GitHub Pages to serve the HTML and CSS directly from your repository:
+Serve the HTML directly from GitHub without a custom server:
+1. Create a repository and add `index.html` to the root.
+2. Commit and push to the `main` branch.
+3. In **Settings → Pages**, choose **Deploy from a branch**, select `main`, and pick the `/ (root)` folder.
+4. Save. GitHub will publish and provide a URL like `https://<username>.github.io/<repo>/`.
 
-1. Create a new repository and add `index.html` and `styles.css` to the root.
-2. Commit and push the files to the `main` branch.
-3. In **Settings → Pages**, set **Source** to `Deploy from a branch`, pick the `main` branch, and choose the `/ (root)` folder.
-4. Click **Save**. GitHub will build the site and provide a public URL like `https://<username>.github.io/<repo>/`.
-
-That URL will serve your static site—no custom server or additional setup required.
-
-## One-click deploy via GitHub Actions (optional)
-If you prefer GitHub Pages to deploy automatically after every push to `main`, keep the provided workflow:
-
-1. Ensure the repository has **Pages → Build and deployment → Source** set to **GitHub Actions**.
-2. Push your changes to `main`; the workflow at `.github/workflows/deploy.yml` will upload the root folder as a Pages artifact and publish it.
-3. After the first successful run, GitHub will display the public URL in the workflow summary and on the **Pages** settings screen.
-
-The workflow uses only static files—no custom server or build step is required.
+## Optional: auto-deploy via GitHub Actions
+If you keep the provided workflow in `.github/workflows/deploy.yml`, set **Pages → Build and deployment → Source** to **GitHub Actions**. Every push to `main` will upload `index.html` (with all CSS embedded) and republish the site automatically.
