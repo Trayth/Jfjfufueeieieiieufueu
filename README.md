@@ -1,6 +1,6 @@
 # Pocket Arcade Menu
 
-A self-contained HTML game hub built for quick play on mobile devices. The first game, **Mental Math Sprint**, is ready to go and everything—markup, styling (fully inline), and scripts—lives in a single file for easy sharing.
+A self-contained HTML game hub built for quick play on mobile devices. The first game, **Mental Math Sprint**, is ready to go and everything—markup, styling (fully inline), and scripts—lives in a single file for easy sharing. A custom on-screen keypad is baked in so the page can run without a native keyboard, and multiple difficulty levels keep the sprint interesting. No standalone CSS file is shipped or required.
 
 ## Open it anywhere
 - Download `index.html` to your phone, tablet, or desktop.
